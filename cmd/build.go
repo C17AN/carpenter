@@ -5,7 +5,10 @@ Copyright © 2022 Chanmin, Kim <kimchanmin1@gmail.com>
 package cmd
 
 import (
+	"bufio"
 	"fmt"
+	"strings"
+	"time"
 
 	"os/exec"
 
@@ -22,18 +25,18 @@ type buildMetadata struct {
 // buildCmd represents the build command
 var buildCmd = &cobra.Command{
 	Use:   "build",
-	Short: "아키텍처",
+	Short: "Build docker image with interactive window",
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("Select Your Architecture Type :")
-
 		dockerfilePathPrompt := promptui.Prompt{
-			Label: "Input dockerfile path",
+			Label:   "Input dockerfile path",
+			Default: ".",
 		}
 
 		architectureTypeSelect := promptui.Select{
 			Label: "Architecture",
-			Items: []string{"ARM64", "AMD64"},
+			Items: []string{"ARM64", "AMD64", "ARM/v7"},
 		}
 
 		imageTagPrompt := promptui.Prompt{
@@ -55,23 +58,39 @@ var buildCmd = &cobra.Command{
 		Target Image tag: %q
 		Using Cache: %s`, dockerfilePath, architectureName, imageTagname, isUsingCache)
 
-		command := fmt.Sprintf("--platform=%s -t %s %s", architectureName, imageTagname, dockerfilePath)
+		command := fmt.Sprintf("docker build --platform=linux/%s -t %s %s", architectureName, imageTagname, dockerfilePath)
 		confirmBuildPrompt := promptui.Prompt{
-			Label: "Proceed with these settings?",
+			Label:   "Proceed with these settings? [Y/n]",
+			Default: "y",
 		}
 
 		isConfirmed, _ := confirmBuildPrompt.Run()
-		if isConfirmed == "y" {
-			execute := exec.Command("docker", "build", command)
-			stdout, err := execute.Output()
+		if isConfirmed == "y" || isConfirmed == "yes" {
+			execute := exec.Command("bash", "-c", command)
 
-			if err != nil {
-				fmt.Println(err.Error())
-				return
+			// line 69 ~ 도커 빌드 로그 출력해주는 코드
+			stdout, _ := execute.StdoutPipe()
+			// start the command after having set up the pipe
+			if err := execute.Start(); err != nil {
+				fmt.Println("Error")
 			}
 
-			// Print the output
-			fmt.Println(string(stdout))
+			// read command's stdout line by line
+			scanner := bufio.NewScanner(stdout)
+
+			for scanner.Scan() {
+				fmt.Println(scanner.Text()) // write each line to your fmt, or anything you need
+			}
+			if err := scanner.Err(); err != nil {
+				fmt.Printf("error: %s", err)
+			}
+			_ = execute.Wait()
+		} else {
+			fmt.Printf("Aborting")
+			for i := 0; i < 3; i++ {
+				fmt.Printf("%s", strings.Repeat(".", 1))
+				time.Sleep(500 * time.Millisecond)
+			}
 		}
 	},
 }
