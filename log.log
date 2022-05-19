@@ -1,0 +1,146 @@
+#1 [internal] load build definition from Dockerfile
+#1 sha256:beab5e06c8a673dd6c6d0d8c996a48939510de8c3e5ad819e072729a73f1ec76
+#1 transferring dockerfile: 36B done
+#1 DONE 0.0s
+
+#2 [internal] load .dockerignore
+#2 sha256:90e4fd3f62c4214481f5fb7399f3744a574fb8073ad02df0a12baf63bc834d2c
+#2 transferring context: 2B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:14-alpine
+#3 sha256:e9f604fd3f1f0040236326aac32cfcef9c63fae57a1934aceea4decb8d14451f
+#3 ...
+
+#4 [auth] library/node:pull token for registry-1.docker.io
+#4 sha256:c71030444ac839ef8294a88cd4c3febe21d47fad6cb2d53b1b3bd79db0e12552
+#4 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:14-alpine
+#3 sha256:e9f604fd3f1f0040236326aac32cfcef9c63fae57a1934aceea4decb8d14451f
+#3 DONE 2.8s
+
+#5 [1/1] FROM docker.io/library/node:14-alpine@sha256:c9b8829068199346e2a9ae46f870bbb82ce44de6580321300bf3945d00dee0f1
+#5 sha256:2d9fdfcb0bb9a24af5cf50d1f575c79fb5406d134e156186f7710a2ae84df91e
+#5 CACHED
+
+#6 exporting to image
+#6 sha256:e8c613e07b0b7ff33893b694f7759a10d42e180f2b4dc349fb57dc6b71dcab00
+#6 exporting layers done
+#6 writing image sha256:126c2ee2a10bf9d8b8effaa85d45662f8b4d7877a46c72cce747d8e6dba561ff done
+#6 naming to docker.io/library/default:latest done
+#6 DONE 0.0s
+
+Use 'docker scan' to run Snyk tests against images to find vulnerabilities and learn how to fix them
+#1 [internal] load build definition from Dockerfile
+#1 sha256:e0ffcff7e893c137aefa0c8188a3e7bfe0eea61972c7081226eac8eafe126fa0
+#1 transferring dockerfile: 36B done
+#1 DONE 0.0s
+
+#2 [internal] load .dockerignore
+#2 sha256:6dba564c3d76c6c20d9df1747a60f834b430c66bad6b63b8394170e48de146d6
+#2 transferring context: 2B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:14-alpine
+#3 sha256:e9f604fd3f1f0040236326aac32cfcef9c63fae57a1934aceea4decb8d14451f
+#3 DONE 0.9s
+
+#4 [1/1] FROM docker.io/library/node:14-alpine@sha256:c9b8829068199346e2a9ae46f870bbb82ce44de6580321300bf3945d00dee0f1
+#4 sha256:2d9fdfcb0bb9a24af5cf50d1f575c79fb5406d134e156186f7710a2ae84df91e
+#4 CACHED
+
+#5 exporting to image
+#5 sha256:e8c613e07b0b7ff33893b694f7759a10d42e180f2b4dc349fb57dc6b71dcab00
+#5 exporting layers done
+#5 writing image sha256:126c2ee2a10bf9d8b8effaa85d45662f8b4d7877a46c72cce747d8e6dba561ff done
+#5 naming to docker.io/library/default:latest done
+#5 DONE 0.0s
+
+Use 'docker scan' to run Snyk tests against images to find vulnerabilities and learn how to fix them
+#1 [internal] load build definition from Dockerfile
+#1 sha256:7a3f65c74e2080f7ac4be9c6f6e609daf71e10b536971492de046f7f6ca77eef
+#1 transferring dockerfile: 36B done
+#1 DONE 0.0s
+
+#2 [internal] load .dockerignore
+#2 sha256:4b7f0ebfca856b4c2fe239e526fda86457292a6a83fe84251859321a49c4d2b1
+#2 transferring context: 2B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:14-alpine
+#3 sha256:e9f604fd3f1f0040236326aac32cfcef9c63fae57a1934aceea4decb8d14451f
+#3 DONE 1.0s
+
+#4 [1/1] FROM docker.io/library/node:14-alpine@sha256:c9b8829068199346e2a9ae46f870bbb82ce44de6580321300bf3945d00dee0f1
+#4 sha256:2d9fdfcb0bb9a24af5cf50d1f575c79fb5406d134e156186f7710a2ae84df91e
+#4 CACHED
+
+#5 exporting to image
+#5 sha256:e8c613e07b0b7ff33893b694f7759a10d42e180f2b4dc349fb57dc6b71dcab00
+#5 exporting layers done
+#5 writing image sha256:126c2ee2a10bf9d8b8effaa85d45662f8b4d7877a46c72cce747d8e6dba561ff done
+#5 naming to docker.io/library/default:latest done
+#5 DONE 0.0s
+
+Use 'docker scan' to run Snyk tests against images to find vulnerabilities and learn how to fix them
+#1 [internal] load build definition from Dockerfile
+#1 sha256:66333e564c2eef67a7242cb8499d241f30cf19599b4367345655843ec838db53
+#1 transferring dockerfile: 36B done
+#1 DONE 0.0s
+
+#2 [internal] load .dockerignore
+#2 sha256:cf24c44535c58a97696eec0552b78495925004ddca5507398e919f44f50f4508
+#2 transferring context: 2B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:14-alpine
+#3 sha256:acf2aed32632e4afec5eff86c347b86cb891f0b39357d2a4a4d7d0aba79ad28c
+#3 DONE 1.6s
+
+#4 [1/1] FROM docker.io/library/node:14-alpine@sha256:c9b8829068199346e2a9ae46f870bbb82ce44de6580321300bf3945d00dee0f1
+#4 sha256:eb8ca466bd58a060dd59778969c10a9f0cbb839efa716d823da26e8940cc4392
+#4 CACHED
+
+#5 exporting to image
+#5 sha256:e8c613e07b0b7ff33893b694f7759a10d42e180f2b4dc349fb57dc6b71dcab00
+#5 exporting layers done
+#5 writing image sha256:a2f79e70efe78aba9cc68766856a642e6e4bc32c562379f616dcf5a88a825906 done
+#5 naming to docker.io/library/default:latest done
+#5 DONE 0.0s
+
+Use 'docker scan' to run Snyk tests against images to find vulnerabilities and learn how to fix them
+#1 [internal] load build definition from Dockerfile
+#1 sha256:18d6665658d42e6b182bb6ae21c5fd15e9dac9700257a19c4594ceeb702ebc63
+#1 transferring dockerfile: 36B done
+#1 DONE 0.0s
+
+#2 [internal] load .dockerignore
+#2 sha256:3be63b7a5bd7ba4f03c232d1e24944ef368df7a12cb8d8f9ffbe9ba0193305ee
+#2 transferring context: 2B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:14-alpine
+#3 sha256:acf2aed32632e4afec5eff86c347b86cb891f0b39357d2a4a4d7d0aba79ad28c
+#3 ...
+
+#4 [auth] library/node:pull token for registry-1.docker.io
+#4 sha256:eb1862162381a387826bfa7b18c2ed7a9bb051daf3f6cb38a1ce4490ef1ed970
+#4 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:14-alpine
+#3 sha256:acf2aed32632e4afec5eff86c347b86cb891f0b39357d2a4a4d7d0aba79ad28c
+#3 DONE 2.1s
+
+#5 [1/1] FROM docker.io/library/node:14-alpine@sha256:c9b8829068199346e2a9ae46f870bbb82ce44de6580321300bf3945d00dee0f1
+#5 sha256:eb8ca466bd58a060dd59778969c10a9f0cbb839efa716d823da26e8940cc4392
+#5 CACHED
+
+#6 exporting to image
+#6 sha256:e8c613e07b0b7ff33893b694f7759a10d42e180f2b4dc349fb57dc6b71dcab00
+#6 exporting layers done
+#6 writing image sha256:a2f79e70efe78aba9cc68766856a642e6e4bc32c562379f616dcf5a88a825906 done
+#6 naming to docker.io/library/default:v2 done
+#6 DONE 0.0s
+
+Use 'docker scan' to run Snyk tests against images to find vulnerabilities and learn how to fix them

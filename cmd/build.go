@@ -5,8 +5,11 @@ Copyright © 2022 Chanmin, Kim <kimchanmin1@gmail.com>
 package cmd
 
 import (
-	"bufio"
+	"flag"
 	"fmt"
+	"io"
+	"os"
+
 	"strings"
 	"time"
 
@@ -16,11 +19,10 @@ import (
 	"github.com/spf13/cobra"
 )
 
-type buildMetadata struct {
-	tag            string
-	dockerfilePath string
-	architecture   string
-}
+var (
+	words     = flag.Int("words", 2, "The number of words in the pet name")
+	separator = flag.String("separator", "-", "The separator between words in the pet name")
+)
 
 // buildCmd represents the build command
 var buildCmd = &cobra.Command{
@@ -28,6 +30,8 @@ var buildCmd = &cobra.Command{
 	Short: "Build docker image with interactive window",
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
+		// name := petname.Generate(*words, *separator)
+		fmt.Println()
 		fmt.Println("Select Your Architecture Type :")
 		dockerfilePathPrompt := promptui.Prompt{
 			Label:   "Input dockerfile path",
@@ -40,7 +44,13 @@ var buildCmd = &cobra.Command{
 		}
 
 		imageTagPrompt := promptui.Prompt{
-			Label: "Target Image name",
+			Label:   "Target Image tagname",
+			Default: "default",
+		}
+
+		imageVersionPrompt := promptui.Prompt{
+			Label:   "Target Image version",
+			Default: "latest",
 		}
 
 		isUsingCachePrompt := promptui.Select{
@@ -51,14 +61,17 @@ var buildCmd = &cobra.Command{
 		dockerfilePath, _ := dockerfilePathPrompt.Run()
 		_, architectureName, _ := architectureTypeSelect.Run()
 		imageTagname, _ := imageTagPrompt.Run()
+		imageVersion, _ := imageVersionPrompt.Run()
 		_, isUsingCache, _ := isUsingCachePrompt.Run()
-		fmt.Printf(`Image will created with those info : 
-		Dockerfile Path: %q
-		Target architecture: %q
-		Target Image tag: %q
-		Using Cache: %s`, dockerfilePath, architectureName, imageTagname, isUsingCache)
 
-		command := fmt.Sprintf("docker build --platform=linux/%s -t %s %s", architectureName, imageTagname, dockerfilePath)
+		fmt.Printf("\n--- Image will created with those info ---\n\n")
+		fmt.Printf("\"Dockerfile Path\" : %q\n", dockerfilePath)
+		fmt.Printf("\"Target architecture\" : %q\n", architectureName)
+		fmt.Printf("\"Target Image tag\" : %q\n", imageTagname)
+		fmt.Printf("\"Target Image version\" : %q\n", imageVersion)
+		fmt.Printf("\"Using Cache\" : %s\n\n", isUsingCache)
+
+		command := fmt.Sprintf("docker build --platform=linux/%s -t %s:%s %s", architectureName, imageTagname, imageVersion, dockerfilePath)
 		confirmBuildPrompt := promptui.Prompt{
 			Label:   "Proceed with these settings? [Y/n]",
 			Default: "y",
@@ -68,28 +81,21 @@ var buildCmd = &cobra.Command{
 		if isConfirmed == "y" || isConfirmed == "yes" {
 			execute := exec.Command("bash", "-c", command)
 
-			// line 69 ~ 도커 빌드 로그 출력해주는 코드
-			stdout, _ := execute.StdoutPipe()
-			// start the command after having set up the pipe
-			if err := execute.Start(); err != nil {
-				fmt.Println("Error")
-			}
+			// line 85 ~ 도커 빌드 로그 출력해주는 코드
+			f, err := os.OpenFile("log.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+			mwriter := io.MultiWriter(f, os.Stdout)
+			execute.Stderr = mwriter
+			execute.Stdout = mwriter
 
-			// read command's stdout line by line
-			scanner := bufio.NewScanner(stdout)
-
-			for scanner.Scan() {
-				fmt.Println(scanner.Text()) // write each line to your fmt, or anything you need
+			err = execute.Run() //blocks until sub process is complete
+			if err != nil {
+				panic(err)
 			}
-			if err := scanner.Err(); err != nil {
-				fmt.Printf("error: %s", err)
-			}
-			_ = execute.Wait()
 		} else {
 			fmt.Printf("Aborting")
 			for i := 0; i < 3; i++ {
 				fmt.Printf("%s", strings.Repeat(".", 1))
-				time.Sleep(500 * time.Millisecond)
+				time.Sleep(300 * time.Millisecond)
 			}
 		}
 	},
@@ -97,14 +103,4 @@ var buildCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(buildCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// buildCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// buildCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
