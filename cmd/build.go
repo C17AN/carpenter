@@ -1,68 +1,78 @@
 /*
-Copyright © 2022 NAME HERE <EMAIL ADDRESS>
+Copyright © 2022 Chanmin, Kim <kimchanmin1@gmail.com>
 
 */
 package cmd
 
 import (
-	"errors"
 	"fmt"
-	"strconv"
+
+	"os/exec"
 
 	"github.com/manifoldco/promptui"
 	"github.com/spf13/cobra"
 )
 
+type buildMetadata struct {
+	tag            string
+	dockerfilePath string
+	architecture   string
+}
+
 // buildCmd represents the build command
 var buildCmd = &cobra.Command{
 	Use:   "build",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Short: "아키텍처",
+	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("Select Your Architecture Type :")
-		command := ""
 
-		architectureTypePrompt := promptui.Select{
+		dockerfilePathPrompt := promptui.Prompt{
+			Label: "Input dockerfile path",
+		}
+
+		architectureTypeSelect := promptui.Select{
 			Label: "Architecture",
 			Items: []string{"ARM64", "AMD64"},
 		}
 
-		_, result, err := architectureTypePrompt.Run()
-
-		if err != nil {
-			fmt.Printf("Prompt failed %v\n", err)
-			return
+		imageTagPrompt := promptui.Prompt{
+			Label: "Target Image name",
 		}
 
-		command += result
-		fmt.Printf("You choose %q\n", command)
+		isUsingCachePrompt := promptui.Select{
+			Label: "Use layer cache on build",
+			Items: []string{"yes", "no"},
+		}
 
-		validate := func(input string) error {
-			_, err := strconv.ParseFloat(input, 64)
+		dockerfilePath, _ := dockerfilePathPrompt.Run()
+		_, architectureName, _ := architectureTypeSelect.Run()
+		imageTagname, _ := imageTagPrompt.Run()
+		_, isUsingCache, _ := isUsingCachePrompt.Run()
+		fmt.Printf(`Image will created with those info : 
+		Dockerfile Path: %q
+		Target architecture: %q
+		Target Image tag: %q
+		Using Cache: %s`, dockerfilePath, architectureName, imageTagname, isUsingCache)
+
+		command := fmt.Sprintf("--platform=%s -t %s %s", architectureName, imageTagname, dockerfilePath)
+		confirmBuildPrompt := promptui.Prompt{
+			Label: "Proceed with these settings?",
+		}
+
+		isConfirmed, _ := confirmBuildPrompt.Run()
+		if isConfirmed == "y" {
+			execute := exec.Command("docker", "build", command)
+			stdout, err := execute.Output()
+
 			if err != nil {
-				return errors.New("Invalid number")
+				fmt.Println(err.Error())
+				return
 			}
-			return nil
+
+			// Print the output
+			fmt.Println(string(stdout))
 		}
-
-		imageNamgePrompt := promptui.Prompt{
-			Label:    "Number",
-			Validate: validate,
-		}
-
-		result, err = imageNamgePrompt.Run()
-
-		if err != nil {
-			fmt.Printf("Prompt failed %v\n", err)
-			return
-		}
-
-		fmt.Printf("You choose %q\n", result)
 	},
 }
 
