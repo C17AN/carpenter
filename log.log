@@ -144,3 +144,75 @@ Use 'docker scan' to run Snyk tests against images to find vulnerabilities and l
 #6 DONE 0.0s
 
 Use 'docker scan' to run Snyk tests against images to find vulnerabilities and learn how to fix them
+invalid argument "spacesangsoo/hello!:latest" for "-t, --tag" flag: invalid reference format
+See 'docker build --help'.
+invalid argument ":" for "-t, --tag" flag: invalid reference format
+See 'docker build --help'.
+#1 [internal] load build definition from Dockerfile
+#1 sha256:4668c547dd5a35743df9a5dc69fb2f9864bee250cfcc5f9b70f02750756de93c
+#1 transferring dockerfile: 36B done
+#1 DONE 0.0s
+
+#2 [internal] load .dockerignore
+#2 sha256:ce95db1f6612446d7422964b08443f4429a0e490c9d94f1d480a8e75776197d5
+#2 transferring context: 2B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:14-alpine
+#3 sha256:acf2aed32632e4afec5eff86c347b86cb891f0b39357d2a4a4d7d0aba79ad28c
+#3 ...
+
+#4 [auth] library/node:pull token for registry-1.docker.io
+#4 sha256:b9467f4a68f7dbb5387b6b07bc556127ff31b3b4f7c03582beeb6697aa620962
+#4 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:14-alpine
+#3 sha256:acf2aed32632e4afec5eff86c347b86cb891f0b39357d2a4a4d7d0aba79ad28c
+#3 DONE 4.0s
+
+#5 [1/1] FROM docker.io/library/node:14-alpine@sha256:c9b8829068199346e2a9ae46f870bbb82ce44de6580321300bf3945d00dee0f1
+#5 sha256:eb8ca466bd58a060dd59778969c10a9f0cbb839efa716d823da26e8940cc4392
+#5 CACHED
+
+#6 exporting to image
+#6 sha256:e8c613e07b0b7ff33893b694f7759a10d42e180f2b4dc349fb57dc6b71dcab00
+#6 exporting layers done
+#6 writing image sha256:a2f79e70efe78aba9cc68766856a642e6e4bc32c562379f616dcf5a88a825906 0.0s done
+#6 naming to docker.io/library/educated-terrier:latest done
+#6 DONE 0.0s
+
+Use 'docker scan' to run Snyk tests against images to find vulnerabilities and learn how to fix them
+#1 [internal] load build definition from Dockerfile
+#1 sha256:df16ee691241cc185b9676c4388e9973e166e1ef5dff7de52730784ea898ca10
+#1 transferring dockerfile: 36B done
+#1 DONE 0.0s
+
+#2 [internal] load .dockerignore
+#2 sha256:f684c43a030c6823f5117435e1f54672509c3f9d1871a5884b2668e5279596d7
+#2 transferring context: 2B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:14-alpine
+#3 sha256:e9f604fd3f1f0040236326aac32cfcef9c63fae57a1934aceea4decb8d14451f
+#3 ...
+
+#4 [auth] library/node:pull token for registry-1.docker.io
+#4 sha256:6a2fdaa900d321359a9f85301d7bdbeb059d7085bf88d13ad7bf69c75f7db5f8
+#4 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:14-alpine
+#3 sha256:e9f604fd3f1f0040236326aac32cfcef9c63fae57a1934aceea4decb8d14451f
+#3 DONE 4.6s
+
+#5 [1/1] FROM docker.io/library/node:14-alpine@sha256:c9b8829068199346e2a9ae46f870bbb82ce44de6580321300bf3945d00dee0f1
+#5 sha256:2d9fdfcb0bb9a24af5cf50d1f575c79fb5406d134e156186f7710a2ae84df91e
+#5 CACHED
+
+#6 exporting to image
+#6 sha256:e8c613e07b0b7ff33893b694f7759a10d42e180f2b4dc349fb57dc6b71dcab00
+#6 exporting layers done
+#6 writing image sha256:126c2ee2a10bf9d8b8effaa85d45662f8b4d7877a46c72cce747d8e6dba561ff done
+#6 naming to docker.io/library/fancy-impala:latest done
+#6 DONE 0.0s
+
+Use 'docker scan' to run Snyk tests against images to find vulnerabilities and learn how to fix them

@@ -5,23 +5,16 @@ Copyright © 2022 Chanmin, Kim <kimchanmin1@gmail.com>
 package cmd
 
 import (
-	"flag"
 	"fmt"
 	"io"
 	"os"
-
-	"strings"
-	"time"
 
 	"os/exec"
 
 	"github.com/manifoldco/promptui"
 	"github.com/spf13/cobra"
-)
 
-var (
-	words     = flag.Int("words", 2, "The number of words in the pet name")
-	separator = flag.String("separator", "-", "The separator between words in the pet name")
+	"carpenter/utils"
 )
 
 // buildCmd represents the build command
@@ -33,6 +26,9 @@ var buildCmd = &cobra.Command{
 		// name := petname.Generate(*words, *separator)
 		fmt.Println()
 		fmt.Println("Select Your Architecture Type :")
+
+		var defaultTagName = utils.GenerateUniqueTag()
+
 		dockerfilePathPrompt := promptui.Prompt{
 			Label:   "Input dockerfile path",
 			Default: ".",
@@ -40,12 +36,13 @@ var buildCmd = &cobra.Command{
 
 		architectureTypeSelect := promptui.Select{
 			Label: "Architecture",
-			Items: []string{"ARM64", "AMD64", "ARM/v7"},
+			Items: []string{"ARM64", "AMD64", "ARM/v7", "wowwowwow"},
 		}
 
 		imageTagPrompt := promptui.Prompt{
-			Label:   "Target Image tagname",
-			Default: "default",
+			Label:    "Target Image tagname",
+			Default:  defaultTagName,
+			Validate: utils.ImageTagValidator,
 		}
 
 		imageVersionPrompt := promptui.Prompt{
@@ -58,7 +55,10 @@ var buildCmd = &cobra.Command{
 			Items: []string{"yes", "no"},
 		}
 
-		dockerfilePath, _ := dockerfilePathPrompt.Run()
+		dockerfilePath, err := dockerfilePathPrompt.Run()
+		if err != nil {
+			fmt.Println("Dead!")
+		}
 		_, architectureName, _ := architectureTypeSelect.Run()
 		imageTagname, _ := imageTagPrompt.Run()
 		imageVersion, _ := imageVersionPrompt.Run()
@@ -73,11 +73,13 @@ var buildCmd = &cobra.Command{
 
 		command := fmt.Sprintf("docker build --platform=linux/%s -t %s:%s %s", architectureName, imageTagname, imageVersion, dockerfilePath)
 		confirmBuildPrompt := promptui.Prompt{
-			Label:   "Proceed with these settings? [Y/n]",
-			Default: "y",
+			Label:     "Proceed with these settings? [Y/n]",
+			Default:   "y",
+			IsConfirm: true,
 		}
 
 		isConfirmed, _ := confirmBuildPrompt.Run()
+
 		if isConfirmed == "y" || isConfirmed == "yes" {
 			execute := exec.Command("bash", "-c", command)
 
@@ -91,13 +93,14 @@ var buildCmd = &cobra.Command{
 			if err != nil {
 				panic(err)
 			}
-		} else {
-			fmt.Printf("Aborting")
-			for i := 0; i < 3; i++ {
-				fmt.Printf("%s", strings.Repeat(".", 1))
-				time.Sleep(300 * time.Millisecond)
-			}
 		}
+		// } else {
+		// 	fmt.Printf("Aborting")
+		// 	for i := 0; i < 3; i++ {
+		// 		fmt.Printf("%s", strings.Repeat(".", 1))
+		// 		time.Sleep(300 * time.Millisecond)
+		// 	}
+		// }
 	},
 }
 
